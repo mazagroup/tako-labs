@@ -1,0 +1,42 @@
+#
+# Amdatu Blueprint mongodb feature
+#
+blueprint-feature.mongodb: mongodb
+blueprint-repo.mongodb: https://repository.amdatu.org/amdatu-mongodb/r7/repo/index.xml.gz
+blueprint-deps.mongodb: \
+	com.fasterxml.jackson.core:jackson-annotations:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.core:jackson-core:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.core:jackson-databind:${com-fasterxml-jackson-core-version},\
+	de.undercouch:bson4jackson:2.7.0
+
+#
+# Build
+#
+-buildpath.blueprint-mongodb: \
+	${if;(buildfeaturesMerged[]=mongodb); \
+		org.amdatu.mongo\
+	}
+
+# Add testing support for mongodb if mongodb and testing feature are both enabled
+-buildpath.blueprint-mongodb-testing: \
+	${if;(&(buildfeaturesMerged[]=mongodb)(buildfeaturesMerged[]=testing)); \
+		org.amdatu.mongo.testing\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-mongodb: \
+	${if;(runfeaturesMerged[]=mongodb); \
+		com.fasterxml.jackson.core.jackson-annotations,\
+		com.fasterxml.jackson.core.jackson-core,\
+		com.fasterxml.jackson.core.jackson-databind,\
+		de.undercouch.bson4jackson,\
+		org.amdatu.mongo\
+	}
+
+# Add testing support for mongodb if mongodb and testing feature are both enabled
+-runbundles.blueprint-mongodb-testing: \
+	${if;(&(runfeaturesMerged[]=mongodb)(runfeaturesMerged[]=testing)); \
+		org.amdatu.mongo.testing\
+	}

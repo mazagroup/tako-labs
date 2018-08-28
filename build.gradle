@@ -1,0 +1,15 @@
+// Available to customize the build
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.2.8'
+    }
+}
+repositories {
+    jcenter()
+}
+
+apply from: 'cnf/gradle/docker-export.gradle'

@@ -1,0 +1,5 @@
+Bundle-Version: 1.0.0
+Private-Package: org.amdatu.tutorial.todo.memory
+
+-buildfeatures:
+-buildpath: org.amdatu.tutorial.todo.api;version=latest

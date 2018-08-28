@@ -1,0 +1,14 @@
+#
+# Configure repositories for Amdatu Blueprint
+-plugin.amdatu-blueprint-repos: \
+	aQute.bnd.repository.osgi.OSGiRepository; \
+        name='Amdatu Blueprint OSGi'; \
+        poll.time=0; \
+        locations="${blueprint-repo.*}"
+
+-plugin.amdatu-blueprint-maven: \
+    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+        releaseUrls=https://repo1.maven.org/maven2/; \
+        revision="${blueprint-deps.*}"; \
+        transitive=false; \
+        name='Amdatu Blueprint maven'

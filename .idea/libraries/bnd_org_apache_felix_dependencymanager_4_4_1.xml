@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="bnd:org.apache.felix.dependencymanager:4.4.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.dependencymanager/4.4.1/org.apache.felix.dependencymanager-4.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.dependencymanager/4.4.1/org.apache.felix.dependencymanager-4.4.1.jar!/OSGI-OPT/src" />
+    </SOURCES>
+  </library>
+</component>

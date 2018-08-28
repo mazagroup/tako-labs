@@ -1,0 +1,21 @@
+#
+# Amdatu Blueprint blobstores feature
+#
+blueprint-feature.blobstores: blobstores
+blueprint-repo.blobstores: https://repository.amdatu.org/amdatu-blobstores/r7/repo/index.xml.gz
+
+#
+# Build
+#
+-buildpath.blueprint-blobstores: \
+	${if;(buildfeaturesMerged[]=blobstores); \
+		org.amdatu.blobstores\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-blobstores: \
+	${if;(runfeaturesMerged[]=blobstores); \
+		org.amdatu.blobstores\
+	}

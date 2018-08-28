@@ -1,0 +1,46 @@
+#
+# Amdatu Blueprint security feature
+#
+blueprint-feature.security: security
+blueprint-repo.security: https://repository.amdatu.org/amdatu-security/r6/repo/index.xml.gz
+
+#
+# Build
+#
+-buildpath.blueprint-security: \
+	${if;(buildfeaturesMerged[]=security); \
+		org.amdatu.security.authentication.authservice.api,\
+		org.amdatu.security.authentication.idprovider.api,\
+		org.amdatu.security.password.hash.api,\
+		org.amdatu.security.password.util,\
+		org.amdatu.security.tokenprovider.api,\
+		org.amdatu.security.authorization.api,\
+		org.amdatu.security.authorization.rest.api\
+	}
+
+-buildpath.blueprint-security-account-admin: \
+	${if;(buildfeaturesMerged[]=security-account-admin); \
+		org.amdatu.security.account.admin.api\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-security: \
+	${if;(runfeaturesMerged[]=security); \
+		org.amdatu.security.authentication.authservice.rest,\
+		org.amdatu.security.authentication.idprovider.local,\
+		org.amdatu.security.authentication.idprovider.openidconnect,\
+		org.amdatu.security.password.hash.pbkdf2,\
+		org.amdatu.security.password.util,\
+		org.amdatu.security.tokenprovider.http,\
+		org.amdatu.security.tokenprovider.jwt,\
+		org.amdatu.security.authorization.impl,\
+		org.amdatu.security.authorization.rest.impl\
+	}
+
+-runbundles.blueprint-security-account-admin: \
+	${if;(runfeaturesMerged[]=security-account-admin); \
+		org.amdatu.security.account.admin,\
+		org.amdatu.security.account.admin.rest\
+	}

@@ -1,0 +1,87 @@
+#
+# Amdatu Blueprint email feature
+#
+blueprint-feature.email: email
+blueprint-repo.email: https://repository.amdatu.org/amdatu-email/r6/repo/index.xml.gz
+blueprint-deps.email: \
+	com.fasterxml.jackson.core:jackson-annotations:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.core:jackson-core:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.core:jackson-databind:${com-fasterxml-jackson-core-version},\
+	commons-codec:commons-codec:${commons-codec-version},\
+	org.apache.httpcomponents:httpclient-osgi:${org-apache-httpcomponents-httpclient-osgi-version},\
+	org.apache.httpcomponents:httpcore-osgi:${org-apache-httpcomponents-httpcore-osgi-version}
+
+#
+# Build
+#
+-buildpath.blueprint-email: \
+	${if;(buildfeaturesMerged[]=email); \
+		org.amdatu.email.api\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-email: \
+	${if;(runfeaturesMerged[]=email); \
+		org.amdatu.email.impl\
+	}
+
+# Select transport based on 'email-transport' value defaults to 'mock'
+blueprint-email-transport: ${def;email-transport;mock}
+
+# AWS Transport
+-runbundles.blueprint-email-aws: \
+	${if;(&(runfeaturesMerged[]=email)(blueprint-email-transport[]=aws)); \
+		com.fasterxml.jackson.core.jackson-annotations,\
+		com.fasterxml.jackson.core.jackson-core,\
+		com.fasterxml.jackson.core.jackson-databind,\
+		org.amdatu.email.aws,\
+		org.apache.commons.codec,\
+		org.apache.httpcomponents.httpcore,\
+		org.apache.httpcomponents.httpclient\
+	}
+
+-runsystempackages.blueprint-email-aws: \
+	${if;(&(runfeaturesMerged[]=email)(blueprint-email-transport[]=aws)); \
+		javax.mail,\
+		javax.mail.internet,\
+		javax.crypto,\
+		javax.net.ssl,\
+		javax.crypto.spec,\
+		javax.swing,\
+		javax.xml.bind,\
+		javax.xml.datatype,\
+		javax.security.auth.x500,\
+		javax.swing.border,\
+		org.ietf.jgss,\
+		javax.xml.namespace,\
+		javax.swing.event,\
+		javax.swing.tree,\
+		javax.xml.parsers,\
+		javax.xml.stream,\
+		javax.xml.stream.events,\
+		javax.xml.xpath,\
+		org.w3c.dom,\
+		org.w3c.dom.bootstrap,\
+		org.w3c.dom.ls,\
+		org.xml.sax,\
+		org.xml.sax.helpers\
+	}
+
+# Mock Transport
+-runbundles.blueprint-email-mock: \
+	${if;(&(runfeaturesMerged[]=email)(blueprint-email-transport[]=mock)); \
+		org.amdatu.email.mock\
+	}
+
+# SMTP Transport
+-runbundles.blueprint-email-smtp: \
+	${if;(&(runfeaturesMerged[]=email)(blueprint-email-transport[]=smtp)); \
+		org.amdatu.email.smtp\
+	}
+
+-runsystempackages.blueprint-email-smtp: \
+	${if;(&(runfeaturesMerged[]=email)(blueprint-email-transport[]=smtp)); \
+		sun.security.util\
+	}

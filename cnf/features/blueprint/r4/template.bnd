@@ -1,0 +1,21 @@
+#
+# Amdatu Blueprint template feature
+#
+blueprint-feature.template: template
+blueprint-repo.template: https://repository.amdatu.org/amdatu-template/r3/repo/index.xml.gz
+
+#
+# Build
+#
+-buildpath.blueprint-template: \
+	${if;(buildfeaturesMerged[]=template); \
+		org.amdatu.template\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-template: \
+	${if;(runfeaturesMerged[]=template); \
+		org.amdatu.template\
+	}

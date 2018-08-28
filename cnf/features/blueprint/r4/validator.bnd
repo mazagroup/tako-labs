@@ -1,0 +1,25 @@
+#
+# Amdatu Blueprint validator feature
+#
+blueprint-feature.validator: validator
+blueprint-repo.validator: https://repository.amdatu.org/amdatu-validator/r6/repo/index.xml.gz
+blueprint-deps.validator: \
+	javax.validation:validation-api:2.0.1.Final
+
+#
+# Build
+#
+-buildpath.blueprint-validator: \
+	${if;(buildfeaturesMerged[]=validator); \
+		javax.validation.api,\
+		org.amdatu.validator\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-validator: \
+	${if;(runfeaturesMerged[]=validator); \
+		javax.validation.api,\
+		org.amdatu.validator\
+	}

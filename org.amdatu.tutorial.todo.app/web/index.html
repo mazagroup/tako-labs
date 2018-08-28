@@ -1,0 +1,36 @@
+<html ng-app="todoApp">
+<head>
+  <title>Amdatu tutorial</title>
+  <style>
+    body {
+      background: #dfdfdf;
+    }
+
+    div {
+      padding: 20px;
+      width: 300px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 5px;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.js"></script>
+  <script src="todo.js"></script>
+</head>
+
+<body>
+  <div ng-controller="TodoController">
+    <h2>Todo list</h2>
+    <form ng-submit="addTodo()">
+      <input type="text" ng-model="todoText" size="30" placeholder="Add new todo here">
+      <input type="submit" value="add">
+    </form>
+    <ul class="unstyled">
+      <li ng-repeat="todo in todos track by $index">
+        <span>{{todo.description}}</span>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

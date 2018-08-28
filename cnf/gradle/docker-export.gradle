@@ -1,0 +1,169 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.2.8'
+    }
+}
+
+subprojects {
+    if (plugins.hasPlugin('biz.aQute.bnd')) {
+        repositories {
+            jcenter()
+        }
+
+        apply plugin: 'com.bmuschko.docker-remote-api'
+
+        docker {
+            registryCredentials {
+                url = 'https://index.docker.io/v1/'
+                username = System.getenv("DOCKER_USER")
+                password = System.getenv("DOCKER_PASSWORD")
+                email = System.getenv("DOCKER_EMAIL")
+            }
+        }
+
+        tasks.addRule('Pattern: docker.<name>: Export the <name>.bndrun file.') { taskName ->
+            if (!taskName.startsWith('docker.')) {
+                return
+            }
+
+            String bndrunName = taskName - 'docker.'
+            File runFile = project.file("${bndrunName}.bndrun")
+            if (!runFile.isFile()) {
+                return
+            }
+
+            withRun(runFile) { run ->
+                String dockerImage = run.get('docker-image')
+                if (dockerImage == null) {
+                    return
+                }
+                String dockerTag = run.get('docker-tag', 'latest')
+
+                String dockerFrom = run.get('docker-from', 'openjdk:8-jre-slim')
+                String dockerMaintainer = run.get('docker-maintainer')
+                String dockerExpose = run.get('docker-expose', '8080')
+
+                task("dockerPrepareCopy.${bndrunName}", type: Copy) {
+                    dependsOn "export.${bndrunName}"
+                    from "generated/distributions/executable/${bndrunName}.jar"
+                    from('.') {
+                        include 'conf/**.*'
+                    }
+                    into "generated/docker/${bndrunName}/"
+                }
+
+                task("dockerPrepareDockerfile.$bndrunName", type: Dockerfile) {
+                    dependsOn "dockerPrepareCopy.$bndrunName"
+                    destFile = project.file("generated/docker/$bndrunName/Dockerfile")
+                    from dockerFrom
+                    if (dockerMaintainer != null) {
+                        maintainer dockerMaintainer
+                    }
+
+                    if (dockerExpose != null) {
+                        dockerExpose.split(',').each { port ->
+                            exposePort(port as int)
+                        }
+                    }
+                    copyFile "${bndrunName}.jar", "${bndrunName}.jar"
+                    copyFile "conf", "conf"
+                    environmentVariable 'JAVA_MEMORY', '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2'
+                    instruction "ENTRYPOINT exec java \$JAVA_MEMORY \$JAVA_OPTS -jar $bndrunName"
+                }
+
+                task(taskName, type: DockerBuildImage) {
+                    description "Create a docker image to run ${bndrunName}.bndrun."
+                    group 'export'
+                    dependsOn "dockerPrepareDockerfile.$bndrunName"
+                    inputDir(project.file("generated/docker/$bndrunName/"))
+                    tag "$dockerImage:$dockerTag"
+                }
+            }
+        }
+
+        task('docker') {
+            description 'Create a docker image each of the bndrun files.'
+            group 'export'
+            fileTree(projectDir) {
+                include '*.bndrun'
+            }.each {
+                Task task = tasks.findByName("docker.${it.name - '.bndrun'}")
+                if (task != null) {
+                    dependsOn task
+                }
+            }
+        }
+
+        tasks.addRule('Pattern: dockerPush.<name>: Export the <name>.bndrun file.') { taskName ->
+            if (!taskName.startsWith('dockerPush.')) {
+                return
+            }
+
+            String bndrunName = taskName - 'dockerPush.'
+            File runFile = project.file("${bndrunName}.bndrun")
+            if (!runFile.isFile()) {
+                return
+            }
+
+            withRun(runFile) { run ->
+                String dockerImage = run.get('docker-image')
+                if (dockerImage == null) {
+                    return
+                }
+
+                String dockerTag = run.get('docker-tag', 'latest')
+                task(taskName, type: DockerPushImage) {
+                    description "Push a docker image created for ${bndrunName}.bndrun to Docker hub."
+                    group 'export'
+                    dependsOn "docker.$bndrunName"
+                    imageName "$dockerImage"
+                    tag dockerTag
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        task('dockerPush') {
+            description 'Push all docker images created for bndrun files to Docker hub.'
+            group 'export'
+            fileTree(projectDir) {
+                include '*.bndrun'
+            }.each {
+                Task task = tasks.findByName("dockerPush.${it.name - '.bndrun'}")
+                if (task != null) {
+                    dependsOn task
+                }
+            }
+        }
+    }
+
+}
+
+/**
+ * Create a aQute.bnd.build.Run instance for a bndrun using the same classLoader used to create the bndWorkspace. The
+ * created Run instance is passed as an argument to a closure which can be used to operate on the created Run instance.
+ *
+ * Just using Run.createRun(bndWorkspace, bndrun) does not work as the bndWorkspace is created by the bnd plugin. That
+ * plugin is using another classLoader than this script so Run.createRun can't use that ...
+ *
+ * @param bndrunFile The bndrun file to create the Run instance for
+ * @param closure Closure that will be called with the created Run instance
+ */
+void withRun(File bndrunFile, Closure closure) {
+    //noinspection GroovyAssignabilityCheck
+    Class<?> runClass = Class.forName('aQute.bnd.build.Run', true, bndWorkspace.getClass().classLoader)
+    runClass.getMethod("createRun", bndWorkspace.class, File.class).invoke(null, bndWorkspace as Object, bndrunFile)
+            .withCloseable { run -> //noinspection GroovyAssignabilityCheck
+        closure(run)
+    }
+}

@@ -1,0 +1,29 @@
+#
+# Amdatu Blueprint config feature
+#
+blueprint-feature.config: config
+blueprint-repo.config: https://repository.amdatu.org/amdatu-configurator/r5/repo/index.xml.gz
+
+#
+# Build
+#
+-buildpath.blueprint-config: \
+	${if;(buildfeaturesMerged[]=config); \
+		org.amdatu.configurator.configurationbuilder\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-config: \
+	${if;(runfeaturesMerged[]=config); \
+		org.amdatu.configurator.autoconf,\
+		org.amdatu.configurator.configurationbuilder,\
+		org.amdatu.configurator.properties\
+	}
+
+# Add shell support for configurator if config and shell feature are both enabled
+-runbundles.blueprint-config-shell: \
+	${if;(&(runfeaturesMerged[]=config)(runfeaturesMerged[]=shell)); \
+		org.amdatu.configurator.shell\
+	}

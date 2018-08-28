@@ -1,0 +1,89 @@
+#
+# Amdatu Blueprint web feature
+#
+blueprint-feature.web: web
+blueprint-repo.web: https://repository.amdatu.org/amdatu-web/r19/repo/index.xml.gz
+blueprint-deps.web: \
+	com.fasterxml.jackson.core:jackson-annotations:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.core:jackson-core:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.core:jackson-databind:${com-fasterxml-jackson-core-version},\
+	com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${com-fasterxml-jackson-datatype-version},\
+	com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${com-fasterxml-jackson-datatype-version},\
+	com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:${com-fasterxml-jackson-jaxrs-version},\
+	com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${com-fasterxml-jackson-jaxrs-version},\
+	commons-fileupload:commons-fileupload:${commons-fileupload-version-version},\
+	commons-io:commons-io:${commons-io-version-version},\
+    javax.websocket:javax.websocket-api:1.0,\
+	org.osgi:org.osgi.service.http.whiteboard:1.0.0,\
+	org.osgi:org.osgi.service.http:1.2.1,\
+	org.apache.felix:org.apache.felix.http.jetty:3.4.8,\
+	org.apache.felix:org.apache.felix.http.servlet-api:1.1.2,\
+	org.apache.httpcomponents:httpclient-osgi:${org-apache-httpcomponents-httpclient-osgi-version},\
+	org.apache.httpcomponents:httpcore-osgi:${org-apache-httpcomponents-httpcore-osgi-version},\
+	org.eclipse.jetty.websocket:javax-websocket-client-impl:9.3.22.v20171030,\
+	org.eclipse.jetty.websocket:javax-websocket-server-impl:9.3.22.v20171030
+
+#
+# Build
+#
+-buildpath.blueprint-web: \
+	${if;(buildfeaturesMerged[]=web); \
+		com.fasterxml.jackson.core.jackson-annotations,\
+		com.fasterxml.jackson.core.jackson-core,\
+		com.fasterxml.jackson.core.jackson-databind,\
+		com.fasterxml.jackson.jaxrs.jackson-jaxrs-base,\
+		com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider,\
+		javax.websocket-api,\
+		org.amdatu.web.rest.doc,\
+		org.amdatu.web.rest.jaxrs,\
+		org.amdatu.web.websocket.api,\
+		org.apache.felix.http.servlet-api,\
+		org.osgi.service.http.whiteboard,\
+		org.osgi.service.http\
+	}
+
+# Add testing support for web if web and testing feature are both enabled
+-buildpath.blueprint-web-testing: \
+	${if;(&(buildfeaturesMerged[]=web)(buildfeaturesMerged[]=testing)); \
+		org.amdatu.web.testing.http,\
+		org.amdatu.web.testing.jaxrs\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-web: \
+	${if;(runfeaturesMerged[]=web); \
+		com.fasterxml.jackson.core.jackson-annotations,\
+		com.fasterxml.jackson.core.jackson-core,\
+		com.fasterxml.jackson.core.jackson-databind,\
+		com.fasterxml.jackson.jaxrs.jackson-jaxrs-base,\
+		com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider,\
+		javax.websocket-api,\
+		org.eclipse.jetty.websocket.javax.websocket,\
+		org.eclipse.jetty.websocket.javax.websocket.server,\
+		org.apache.commons.fileupload,\
+		org.apache.commons.io,\
+		org.apache.felix.http.jetty,\
+		org.apache.felix.http.servlet-api,\
+		org.amdatu.web.filters,\
+		org.amdatu.web.rest.doc,\
+		org.amdatu.web.rest.doc.swagger,\
+		org.amdatu.web.rest.doc.swagger.ui,\
+		org.amdatu.web.rest.resteasy,\
+		org.amdatu.web.websocket.api,\
+		org.amdatu.web.websocket.impl\
+	}
+
+# Add testing support for web if web and testing feature are both enabled
+-runbundles.blueprint-web-testing: \
+	${if;(&(runfeaturesMerged[]=web)(runfeaturesMerged[]=testing)); \
+		org.amdatu.web.testing.http,\
+		org.amdatu.web.testing.jaxrs\
+	}
+
+# Add shell commands for web if web and shell feature are both enabled
+-runbundles.blueprint-web-shell: \
+	${if;(&(runfeaturesMerged[]=web)(runfeaturesMerged[]=shell)); \
+		org.amdatu.web.rest.shell\
+	}

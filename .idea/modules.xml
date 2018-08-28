@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/org.amdatu.tutorial.todo.api/org.amdatu.tutorial.todo.api.iml" filepath="$PROJECT_DIR$/org.amdatu.tutorial.todo.api/org.amdatu.tutorial.todo.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.amdatu.tutorial.todo.app/org.amdatu.tutorial.todo.app.iml" filepath="$PROJECT_DIR$/org.amdatu.tutorial.todo.app/org.amdatu.tutorial.todo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.amdatu.tutorial.todo.memory/org.amdatu.tutorial.todo.memory.iml" filepath="$PROJECT_DIR$/org.amdatu.tutorial.todo.memory/org.amdatu.tutorial.todo.memory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/run/run.iml" filepath="$PROJECT_DIR$/run/run.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tako-labs.iml" filepath="$PROJECT_DIR$/tako-labs.iml" />
+    </modules>
+  </component>
+</project>

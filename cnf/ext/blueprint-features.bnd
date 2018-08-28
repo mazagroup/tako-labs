@@ -1,0 +1,19 @@
+blueprintVersion: r4
+
+# Enable the base and config feature by default
+-buildfeatures.blueprint-default: base
+-runfeatures.blueprint-default: base, config
+
+-include: \
+	../features/blueprint/r4/base.bnd,\
+	../features/blueprint/r4/blobstores.bnd,\
+	../features/blueprint/r4/config.bnd,\
+	../features/blueprint/r4/email.bnd,\
+	../features/blueprint/r4/mongodb.bnd,\
+	../features/blueprint/r4/scheduling.bnd,\
+	../features/blueprint/r4/security.bnd,\
+	../features/blueprint/r4/shell.bnd,\
+	../features/blueprint/r4/template.bnd,\
+	../features/blueprint/r4/testing.bnd,\
+	../features/blueprint/r4/validator.bnd,\
+	../features/blueprint/r4/web.bnd
