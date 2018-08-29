@@ -1,5 +1,6 @@
 Bundle-Version: 1.0.0
-Export-Package: org.amdatu.tutorial.todo.api
+Export-Package: \
+	org.amdatu.tutorial.todo.api,\
+	org.amdatu.tutorial.todo.api.dto
 
--buildfeatures:
 -buildpath:

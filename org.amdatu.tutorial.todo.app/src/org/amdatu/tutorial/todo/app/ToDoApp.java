@@ -6,23 +6,21 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import org.amdatu.web.rest.jaxrs.AmdatuWebRestConstants;
-import org.apache.felix.dm.annotation.api.Component;
-import org.apache.felix.dm.annotation.api.Property;
 import org.osgi.framework.Constants;
+import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-@Component(provides = Application.class)
-@Property(name = Constants.SERVICE_RANKING, intValue = -1)
-@Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN, value = "/*")
-@Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX, value = "/web")
-@Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT, value = ToDoApp.CONTEXT_SELECT)
-
-@Property(name = JaxrsWhiteboardConstants.JAX_RS_NAME, value = ToDoApp.JAX_RS_APPLICATION_NAME)
-@Property(name = JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE, value = "/rest")
-@Property(name = AmdatuWebRestConstants.JAX_RS_APPLICATION_CONTEXT, value = ToDoApp.CONTEXT_NAME)
+@Component(service = Application.class, property = {
+		Constants.SERVICE_RANKING+":Integer=-1",
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN+"=/*",
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX+"=/web",
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT+"="+ToDoApp.CONTEXT_SELECT,
+		JaxrsWhiteboardConstants.JAX_RS_NAME+"="+ToDoApp.JAX_RS_APPLICATION_NAME,
+		JaxrsWhiteboardConstants.JAX_RS_APPLICATION_BASE+"=/rest",
+		AmdatuWebRestConstants.JAX_RS_APPLICATION_CONTEXT+"="+ToDoApp.CONTEXT_NAME})
 public class ToDoApp extends Application {
 
     public static final String JAX_RS_APPLICATION_NAME = "org.amdatu.tutorial.todo.app";
@@ -42,5 +40,4 @@ public class ToDoApp extends Application {
     public Set<Object> getSingletons() {
         return singletons;
     }
-
 }

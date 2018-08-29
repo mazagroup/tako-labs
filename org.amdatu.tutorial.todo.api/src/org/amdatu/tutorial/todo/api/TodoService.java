@@ -3,8 +3,8 @@ import java.util.List;
 
 public interface TodoService {
 
-    List<Todo> list(String user);
+    List<TodoDTO> list(String user);
 
-    void store(Todo todo);
+    void store(TodoDTO todo);
 
 }

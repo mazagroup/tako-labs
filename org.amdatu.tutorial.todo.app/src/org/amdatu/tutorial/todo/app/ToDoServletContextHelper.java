@@ -1,28 +1,49 @@
 package org.amdatu.tutorial.todo.app;
 
-import org.apache.felix.dm.annotation.api.Component;
-import org.apache.felix.dm.annotation.api.Property;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.ServiceFactory;
-import org.osgi.framework.ServiceRegistration;
+
+import java.net.URL;
+import java.util.Set;
+
+import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 import org.osgi.service.http.context.ServletContextHelper;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
 
-@Component(provides = ServletContextHelper.class)
-@Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME, value = ToDoApp.CONTEXT_NAME)
-@Property(name = HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH, value = "/todo")
-public class ToDoServletContextHelper implements ServiceFactory<ServletContextHelper> {
+@Component(service = ServletContextHelper.class, 
+		scope=ServiceScope.PROTOTYPE
+		,
+		property = {
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME+"="+ToDoApp.CONTEXT_NAME,
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH+"=/todo"})
+public class ToDoServletContextHelper extends ServletContextHelper {
 
-    @Override
-    public ServletContextHelper getService(Bundle bundle, ServiceRegistration<ServletContextHelper> registration) {
-        return new ServletContextHelper(bundle) {};
+    private ServletContextHelper delegatee;
+    
+    @Activate
+    private void activate(final ComponentContext ctx) {
+        delegatee = new ServletContextHelper(ctx.getUsingBundle()) {};
     }
-
+ 
     @Override
-    public void ungetService(Bundle bundle, ServiceRegistration<ServletContextHelper> registration,
-        ServletContextHelper service) {
-        // nothing here
+    public URL getResource(String name) {
+        return delegatee.getResource(name);
     }
-
+ 
+    @Override
+    public String getMimeType(String name) {
+        return delegatee.getMimeType(name);
+    }
+ 
+    @Override
+    public Set<String> getResourcePaths(String path) {
+        return delegatee.getResourcePaths(path);
+    }
+ 
+    @Override
+    public String getRealPath(String path) {
+        return delegatee.getRealPath(path);
+    }
 }

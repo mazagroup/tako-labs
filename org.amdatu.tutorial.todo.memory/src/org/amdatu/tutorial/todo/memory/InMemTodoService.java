@@ -4,24 +4,24 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
-import org.amdatu.tutorial.todo.api.Todo;
+import org.amdatu.tutorial.todo.api.TodoDTO;
 import org.amdatu.tutorial.todo.api.TodoService;
-import org.apache.felix.dm.annotation.api.Component;
+import org.osgi.service.component.annotations.Component;
 
 @Component
 public class InMemTodoService implements TodoService {
 
-    private final List<Todo> todos = new CopyOnWriteArrayList<>();
+    private final List<TodoDTO> todos = new CopyOnWriteArrayList<>();
 
     @Override
-    public void store(Todo todo) {
+    public void store(TodoDTO todo) {
         todos.add(todo);
     }
 
     @Override
-    public List<Todo> list(String user) {
+    public List<TodoDTO> list(String user) {
         return todos.stream()
-            .filter(t -> t.getUser().equals(user))
+            .filter(t -> t.user.equals(user))
             .collect(Collectors.toList());
     }
 

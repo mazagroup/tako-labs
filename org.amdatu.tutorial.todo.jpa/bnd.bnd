@@ -1,0 +1,14 @@
+Bundle-Version: 1.0.0
+Private-Package: \
+	org.amdatu.tutorial.todo.jpa.dao.entities,\
+	org.amdatu.tutorial.todo.jpa.dao.impl
+
+-buildfeatures:
+-buildpath: \
+	org.hibernate.javax.persistence.hibernate-jpa-2.1-api;version=1.0,\
+	org.amdatu.tutorial.todo.api;version=latest,\
+	tx-control-service-xa;version=1.0,\
+	tx-control-provider-jpa-xa;version=1.0,\
+	slf4j.api;version=1.7
+	
+-includeresource: /=resources

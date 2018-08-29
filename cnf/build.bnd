@@ -5,6 +5,33 @@
 # Default build features (will be enabled for all projects in the workspace)
 -buildfeatures: base
 
+#Version vars
+commons-io-base:         2.4
+commons-io-ceiling:      3.0
+commons-codec-base:         1.8.0
+commons-codec-ceiling:      2.0.0
+commons-lang3-base:         3.1
+commons-lang3-ceiling:      3.2
+bnd-version-base:         4.0.0
+bnd-version-ceiling:      5.0.0
+felix-scr-version-base:         2.0.14
+felix-scr-version-ceiling:      2.1
+felix-log-version-base:    1.0.1
+felix-log-version-ceiling: 1.1
+felix-configadmin-version-base: 1.8.0
+felix-configadmin-version-ceiling: 2.0
+felix-metatype-version-base: 1.1.2
+felix-metatype-version-ceiling: 1.2
+logging-version-base: 1.7.21
+logging-version-ceiling: 1.8
+dm-runtime-version-base: 4.0.4
+dm-runtime-version-ceiling: 4.1
+dm-version-base: 4.4.1
+dm-version-ceiling: 4.5
+osgi.annotation.version:  6.0.1
+osgi.core.version:        6.0.0
+osgi.cmpn.version:        6.0.0
+
 # Repository for project specific additional dependencies (using project-deps.maven )
 -plugin.ProjectDependencies: \
   aQute.bnd.repository.maven.provider.MavenBndRepository; \

@@ -4,3 +4,8 @@ Private-Package: org.amdatu.tutorial.todo.app
 
 -buildfeatures: web
 -buildpath: org.amdatu.tutorial.todo.api;version=latest
+
+Require-Capability: osgi.service;filter:="(objectClass=org.osgi.service.transaction.control.TransactionControl)";effective:=active,\
+	osgi.service;filter:="(objectClass=org.osgi.service.transaction.control.jpa.JPAEntityManagerProvider)";effective:=active,\
+	osgi.extender;filter:="(&(osgi.extender=osgi.jpa)(&(version>=1.1.0)(!(version>=2.0.0))))",\
+	osgi.contract;osgi.contract=JavaJPA;filter:="(&(osgi.contract=JavaJPA)(version=2.1.0))"

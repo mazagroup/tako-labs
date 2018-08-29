@@ -10,17 +10,51 @@ commons-io-version-version: 2.5
 org-apache-httpcomponents-httpclient-osgi-version: 4.2.3
 org-apache-httpcomponents-httpcore-osgi-version: ${org-apache-httpcomponents-httpclient-osgi-version}
 
+# Copied ...
+osgi-core-version: 6.0.0
+osgi-cmpn-version: 6.0.0
+osgi-annotation-version: 6.0.1
+felix-scr-version: 2.0.14
+fusesource-jansi: 1.6
+slf4j-version: 1.7.21
+jsoup-version: 1.9.1
+felix-scr-version: 2.0.14
+felix-framework-version: 5.4.0
+felix-bundlerepository-version: 2.0.8
+felix-configadmin-version: 1.8.10
+felix-coordinator-version: 1.0.0
+felix-eventadmin-version: 1.4.8
+felix-gogo-command-version: 0.16.0
+felix-gogo-runtime-version: 0.16.2
+felix-log-version: 1.0.1
+pax-logging-version: 1.10.1
+felix-metatype-version: 1.1.2
+servicemix-freemarker-version: 2.3.23_1
+aries-subsystem-api-version: 2.0.8
+aries-subsystem-core-version: 2.0.8
+aries-util-version: 1.1.1
+equinox-region-version: 1.1.0.v20120522-1841
+antlr-java-parser-version: 1.0.15
+mockito-core-version: 2.13.0
+objenesis-version: 2.6
+net-bytebuddy-version: 1.7.5
+servicemix-bundles-junit-version: 4.12_1
+google-guava-version: 16.0.1
+spullara-mustache-version: 0.9.5
+antlr-st4-version: 4.0.8.complete
+bndlib-version:4.0.0
+
 
 #
 # Enable Apache Felix Dependency Manager annotation plugin
 #
--pluginpath.dm: \
-	${build}/plugins/org.apache.felix.dependencymanager.annotation-4.2.1.jar
+#-pluginpath.dm: \
+#	${build}/plugins/org.apache.felix.dependencymanager.annotation-4.2.1.jar
 
--plugin.dm: \
-	org.apache.felix.dm.annotation.plugin.bnd.AnnotationPlugin; \
-		build-import-export-service=false; \
-		add-require-capability=true
+#-plugin.dm: \
+#	org.apache.felix.dm.annotation.plugin.bnd.AnnotationPlugin; \
+#		build-import-export-service=false; \
+#		add-require-capability=true
 
 #
 # Create merged lists of build / run features so we can use these in the check
