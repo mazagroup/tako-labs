@@ -14,11 +14,10 @@ org-apache-httpcomponents-httpcore-osgi-version: ${org-apache-httpcomponents-htt
 osgi-core-version: 6.0.0
 osgi-cmpn-version: 6.0.0
 osgi-annotation-version: 6.0.1
-felix-scr-version: 2.0.14
+felix-scr-version: 2.1.6
 fusesource-jansi: 1.6
 slf4j-version: 1.7.21
 jsoup-version: 1.9.1
-felix-scr-version: 2.0.14
 felix-framework-version: 5.4.0
 felix-bundlerepository-version: 2.0.8
 felix-configadmin-version: 1.9.2
@@ -51,13 +50,13 @@ bndlib-version:4.0.0
 #
 # Enable Apache Felix Dependency Manager annotation plugin
 #
-#-pluginpath.dm: \
-#	${build}/plugins/org.apache.felix.dependencymanager.annotation-4.2.1.jar
+-pluginpath.dm: \
+	${build}/plugins/org.apache.felix.dependencymanager.annotation-4.2.1.jar
 
-#-plugin.dm: \
-#	org.apache.felix.dm.annotation.plugin.bnd.AnnotationPlugin; \
-#		build-import-export-service=false; \
-#		add-require-capability=true
+-plugin.dm: \
+	org.apache.felix.dm.annotation.plugin.bnd.AnnotationPlugin; \
+		build-import-export-service=false; \
+		add-require-capability=true
 
 #
 # Create merged lists of build / run features so we can use these in the check

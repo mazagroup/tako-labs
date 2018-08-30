@@ -1,4 +1,7 @@
 Bundle-Version: 1.0.0
+
+-includeresource: /=resources
+
 Private-Package: \
 	org.amdatu.tutorial.todo.jpa.dao.entities,\
 	org.amdatu.tutorial.todo.jpa.dao.impl
@@ -10,5 +13,3 @@ Private-Package: \
 	tx-control-service-xa;version=1.0,\
 	tx-control-provider-jpa-xa;version=1.0,\
 	slf4j.api;version=1.7
-	
--includeresource: /=resources

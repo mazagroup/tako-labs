@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +16,9 @@ import javax.persistence.criteria.Root;
 import org.amdatu.tutorial.todo.api.TodoDTO;
 import org.amdatu.tutorial.todo.api.TodoDao;
 import org.amdatu.tutorial.todo.jpa.dao.entities.TodoEntity;
+import org.apache.felix.dm.annotation.api.Component;
+import org.apache.felix.dm.annotation.api.ServiceDependency;
+import org.apache.felix.dm.annotation.api.Start;
 import org.osgi.service.transaction.control.TransactionControl;
 import org.osgi.service.transaction.control.jpa.JPAEntityManagerProvider;
 import org.slf4j.Logger;
@@ -30,15 +30,15 @@ public class TodoDaoImpl implements TodoDao {
     
     private static final Logger logger = LoggerFactory.getLogger(TodoDaoImpl.class);
 
-    @Reference
+    @ServiceDependency
     TransactionControl transactionControl;
 
-    @Reference(name="provider")
+    @ServiceDependency(name="provider")
     JPAEntityManagerProvider jpaEntityManagerProvider;
 
     EntityManager em;
 
-    @Activate
+    @Start
     void activate(Map<String, Object> props) throws SQLException {
         em = jpaEntityManagerProvider.getResource(transactionControl);
     }

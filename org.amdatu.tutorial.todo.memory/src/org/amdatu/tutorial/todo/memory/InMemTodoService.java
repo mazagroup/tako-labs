@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.amdatu.tutorial.todo.api.TodoDTO;
 import org.amdatu.tutorial.todo.api.TodoService;
-import org.osgi.service.component.annotations.Component;
+import org.apache.felix.dm.annotation.api.Component;
 
 @Component
 public class InMemTodoService implements TodoService {
