@@ -21,12 +21,15 @@ jsoup-version: 1.9.1
 felix-scr-version: 2.0.14
 felix-framework-version: 5.4.0
 felix-bundlerepository-version: 2.0.8
-felix-configadmin-version: 1.8.10
+felix-configadmin-version: 1.9.2
 felix-coordinator-version: 1.0.0
 felix-eventadmin-version: 1.4.8
 felix-gogo-command-version: 0.16.0
 felix-gogo-runtime-version: 0.16.2
 felix-log-version: 1.0.1
+felix-dm-annotation-version: 4.2.1
+felix-dm-runtime-version: 4.0.5
+felix-dm-version: 4.4.1
 pax-logging-version: 1.10.1
 felix-metatype-version: 1.1.2
 servicemix-freemarker-version: 2.3.23_1

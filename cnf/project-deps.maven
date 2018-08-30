@@ -30,8 +30,11 @@ org.hibernate:hibernate-osgi:5.2.12.Final
 org.hibernate.common:hibernate-commons-annotations:5.0.1.Final
 org.hibernate:hibernate-core:5.2.12.Final
 org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final
+org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.1.Final
 org.apache.aries.jpa:org.apache.aries.jpa.container:2.7.0
 org.apache.aries.jpa.javax.persistence:javax.persistence_2.1:2.7.0
+org.apache.felix:org.apache.felix.configurator:1.0.0
+org.osgi:org.osgi.util.converter:1.0.0
 #   org.apache.aries.javax.jax.rs-api;version='[1.0.0,1.0.1)'
 #	org.apache.aries.jax.rs.whiteboard;version='[1.0.0,1.0.1)'
 #	org.apache.felix.configadmin;version='[1.9.2,1.9.3)'
