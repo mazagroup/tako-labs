@@ -38,3 +38,9 @@ osgi.cmpn.version:        6.0.0
         releaseUrl=https://repo.maven.apache.org/maven2/; \
         index=${build}/project-deps.maven; \
         name=Project dependencies
+        
+# Extensions
+-runbundles.base: \
+	${if;(runfeaturesMerged[]=base); \
+		org.apache.felix.webconsole\
+	}

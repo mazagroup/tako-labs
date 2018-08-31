@@ -67,3 +67,4 @@ bndlib-version:4.0.0
 #
 buildfeaturesMerged: ${-buildfeatures.*}
 runfeaturesMerged: ${-runfeatures.*}
+

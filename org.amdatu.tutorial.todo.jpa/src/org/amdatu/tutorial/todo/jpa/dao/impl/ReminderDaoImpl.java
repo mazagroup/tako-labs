@@ -34,7 +34,7 @@ public class ReminderDaoImpl implements ReminderDao {
 	@ServiceDependency
 	TransactionControl transactionControl;
 
-	@ServiceDependency(name="provider")
+	@ServiceDependency(name="microservice.database")
 	JPAEntityManagerProvider jpaEntityManagerProvider;
 
 	EntityManager em;

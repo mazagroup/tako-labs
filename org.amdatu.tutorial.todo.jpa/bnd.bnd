@@ -2,6 +2,8 @@ Bundle-Version: 1.0.0
 
 -includeresource: /=resources
 
+Meta-Persistence: META-INF/persistence.xml
+
 Private-Package: \
 	org.amdatu.tutorial.todo.jpa.dao.entities,\
 	org.amdatu.tutorial.todo.jpa.dao.impl
@@ -13,3 +15,8 @@ Private-Package: \
 	tx-control-service-xa;version=1.0,\
 	tx-control-provider-jpa-xa;version=1.0,\
 	slf4j.api;version=1.7
+	
+Require-Capability: osgi.service;filter:="(objectClass=org.osgi.service.transaction.control.TransactionControl)";effective:=active,\
+	osgi.service;filter:="(objectClass=org.osgi.service.transaction.control.jpa.JPAEntityManagerProvider)";effective:=active,\
+	osgi.extender;filter:="(&(osgi.extender=osgi.jpa)(&(version>=1.1.0)(!(version>=2.0.0))))",\
+	osgi.contract;osgi.contract=JavaJPA;filter:="(&(osgi.contract=JavaJPA)(version=2.1.0))"
