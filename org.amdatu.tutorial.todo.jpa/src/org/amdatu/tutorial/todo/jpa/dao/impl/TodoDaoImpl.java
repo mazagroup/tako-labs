@@ -30,16 +30,16 @@ public class TodoDaoImpl implements TodoDao {
     
     private static final Logger logger = LoggerFactory.getLogger(TodoDaoImpl.class);
 
-    @ServiceDependency
+    @ServiceDependency(required=true)
     TransactionControl transactionControl;
 
-    @ServiceDependency(name="microservice.database")
+    @ServiceDependency(name="microservice.database",required=true)
     JPAEntityManagerProvider jpaEntityManagerProvider;
 
     EntityManager em;
 
     @Start
-    void activate(Map<String, Object> props) throws SQLException {
+    void activate() throws SQLException {
         em = jpaEntityManagerProvider.getResource(transactionControl);
     }
 

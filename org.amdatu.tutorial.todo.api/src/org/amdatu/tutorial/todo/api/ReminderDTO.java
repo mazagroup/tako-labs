@@ -4,11 +4,16 @@ import java.util.Date;
 
 public class ReminderDTO {
 
-    public Long id;
+    public Long id = 0L;
     public Date date;
     public Long todo_id;
 
     public ReminderDTO() {
     }
+
+	public ReminderDTO(Date date) {
+		super();
+		this.date = date;
+	}
     
 }

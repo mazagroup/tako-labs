@@ -47,4 +47,4 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	org.amdatu.tutorial.todo.jpa;version=latest
 
 -runproperties: \
-	org.ops4j.pax.logging.DefaultServiceLog.level=DEBUG
+	org.ops4j.pax.logging.DefaultServiceLog.level=INFO

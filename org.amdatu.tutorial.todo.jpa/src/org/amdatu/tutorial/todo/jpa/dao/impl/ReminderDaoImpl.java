@@ -15,7 +15,6 @@ import javax.persistence.criteria.Root;
 
 import org.amdatu.tutorial.todo.api.ReminderDTO;
 import org.amdatu.tutorial.todo.api.ReminderDao;
-import org.amdatu.tutorial.todo.api.TodoDao;
 import org.amdatu.tutorial.todo.jpa.dao.entities.ReminderEntity;
 import org.amdatu.tutorial.todo.jpa.dao.entities.TodoEntity;
 import org.apache.felix.dm.annotation.api.Component;
@@ -32,16 +31,16 @@ public class ReminderDaoImpl implements ReminderDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ReminderDaoImpl.class);
 
-	@ServiceDependency
+	@ServiceDependency(required=true)
 	TransactionControl transactionControl;
 
-	@ServiceDependency(name="microservice.database")
+	@ServiceDependency(name="microservice.database",required=true)
 	JPAEntityManagerProvider jpaEntityManagerProvider;
 
 	EntityManager em;
 
 	@Start
-	void activate(Map<String, Object> props) throws SQLException {
+	void activate() throws SQLException {
 		em = jpaEntityManagerProvider.getResource(transactionControl);
 	}
 
