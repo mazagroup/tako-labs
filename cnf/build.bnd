@@ -40,7 +40,7 @@ osgi.cmpn.version:        6.0.0
         name=Project dependencies
         
 # Extensions
--runbundles.base: \
-	${if;(runfeaturesMerged[]=base); \
+-runbundles.web: \
+	${if;(runfeaturesMerged[]=web); \
 		org.apache.felix.webconsole\
 	}

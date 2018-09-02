@@ -16,6 +16,11 @@ Private-Package: \
 	tx-control-provider-jpa-xa;version=1.0,\
 	slf4j.api;version=1.7
 	
+Import-Package: \
+	org.hibernate.proxy,\
+	javassist.util.proxy,\
+	*
+	
 Require-Capability: osgi.service;filter:="(objectClass=org.osgi.service.transaction.control.TransactionControl)";effective:=active,\
 	osgi.service;filter:="(objectClass=org.osgi.service.transaction.control.jpa.JPAEntityManagerProvider)";effective:=active,\
 	osgi.extender;filter:="(&(osgi.extender=osgi.jpa)(&(version>=1.1.0)(!(version>=2.0.0))))",\

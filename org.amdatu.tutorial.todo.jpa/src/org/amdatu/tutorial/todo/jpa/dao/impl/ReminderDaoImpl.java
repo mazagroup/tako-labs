@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 
 import org.amdatu.tutorial.todo.api.ReminderDTO;
 import org.amdatu.tutorial.todo.api.ReminderDao;
+import org.amdatu.tutorial.todo.api.TodoDao;
 import org.amdatu.tutorial.todo.jpa.dao.entities.ReminderEntity;
 import org.amdatu.tutorial.todo.jpa.dao.entities.TodoEntity;
 import org.apache.felix.dm.annotation.api.Component;
@@ -26,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Component
+@Component(provides=ReminderDao.class)
 public class ReminderDaoImpl implements ReminderDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ReminderDaoImpl.class);

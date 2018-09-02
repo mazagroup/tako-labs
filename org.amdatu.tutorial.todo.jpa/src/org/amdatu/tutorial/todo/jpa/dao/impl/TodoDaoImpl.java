@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Component
+@Component(provides=TodoDao.class)
 public class TodoDaoImpl implements TodoDao {
     
     private static final Logger logger = LoggerFactory.getLogger(TodoDaoImpl.class);
