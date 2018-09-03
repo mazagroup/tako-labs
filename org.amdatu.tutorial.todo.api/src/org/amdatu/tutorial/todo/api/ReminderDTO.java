@@ -2,7 +2,7 @@ package org.amdatu.tutorial.todo.api;
 
 import java.util.Date;
 
-public class ReminderDTO {
+public class ReminderDTO extends TenantSupportDTO {
 
     public Long id = 0L;
     public Date date;

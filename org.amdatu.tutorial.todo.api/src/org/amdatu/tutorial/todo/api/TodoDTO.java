@@ -3,7 +3,7 @@ package org.amdatu.tutorial.todo.api;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoDTO {
+public class TodoDTO extends TenantSupportDTO {
 
 	public Long id = 0L;
     public String description;

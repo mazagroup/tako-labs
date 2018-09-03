@@ -6,7 +6,8 @@ Meta-Persistence: META-INF/persistence.xml
 
 Private-Package: \
 	org.amdatu.tutorial.todo.jpa.dao.entities,\
-	org.amdatu.tutorial.todo.jpa.dao.impl
+	org.amdatu.tutorial.todo.jpa.dao.impl,\
+	org.amdatu.tutorial.todo.jpa.hibernate
 
 -buildfeatures:
 -buildpath: \
@@ -14,7 +15,8 @@ Private-Package: \
 	org.amdatu.tutorial.todo.api;version=latest,\
 	tx-control-service-xa;version=1.0,\
 	tx-control-provider-jpa-xa;version=1.0,\
-	slf4j.api;version=1.7
+	slf4j.api;version=1.7,\
+	org.hibernate.core;version=5.2
 	
 Import-Package: \
 	org.hibernate.proxy,\

@@ -9,15 +9,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.amdatu.tutorial.todo.api.TenantSupport;
 import org.amdatu.tutorial.todo.api.TodoDTO;
 
 
 @Entity
 @Table(name="todos")
-public class TodoEntity {
+public class TodoEntity implements TenantSupport {
 
     @OneToMany(mappedBy="todo", cascade=CascadeType.ALL)
     private List<ReminderEntity> reminders = new ArrayList<>();
@@ -26,6 +29,7 @@ public class TodoEntity {
     @Id
     private Long id;
     
+    private String tenantId;
     
     public String description;
     public boolean completed;
@@ -37,8 +41,9 @@ public class TodoEntity {
 		return id;
 	}
 
-	public static TodoEntity fromDTO(TodoDTO dto) {
+	public  static TodoEntity fromDTO(TodoDTO dto) {
     	TodoEntity entity = new TodoEntity();
+    	
         if(dto.id != 0) {
             entity.id = Long.valueOf(dto.id);
         }
@@ -54,6 +59,7 @@ public class TodoEntity {
     
     public TodoDTO toDTO() {
     	TodoDTO dto = new TodoDTO();
+    	
         dto.id = id;
         dto.description = description;
         dto.completed = completed;
@@ -63,4 +69,14 @@ public class TodoEntity {
                 .collect(toList());
         return dto;
     }
+
+	@Override
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	@Override
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
 }
