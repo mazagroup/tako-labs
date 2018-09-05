@@ -66,7 +66,7 @@ public class ReminderDaoImpl implements ReminderDao {
 	@Override
 	public ReminderDTO findByPK(Long pk) {
 
-		return transactionControl.supports(() -> {
+		return transactionControl.notSupported(() -> {
 		    ReminderEntity address = em.find(ReminderEntity.class, pk);
 			return address == null ? null : address.toDTO();
 		});
@@ -121,4 +121,5 @@ public class ReminderDaoImpl implements ReminderDao {
             return null;
 		});
 	}
+	
 }

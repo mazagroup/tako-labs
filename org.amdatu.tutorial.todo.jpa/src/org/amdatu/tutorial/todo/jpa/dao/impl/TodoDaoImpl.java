@@ -82,7 +82,7 @@ public class TodoDaoImpl implements TodoDao {
     @Override
     public TodoDTO findByPK(Long pk) {
 
-       return transactionControl.supports(() -> {
+       return transactionControl.notSupported(() -> {
     	   TodoEntity person = em.find(TodoEntity.class, pk);
            return person == null ? null : person.toDTO();
         });
@@ -101,7 +101,7 @@ public class TodoDaoImpl implements TodoDao {
                 em.merge(entity);
             }
 
-            logger.info("Saved Person with ID : {}", entity.getId());
+            logger.info("Saved Todo with ID : {}", entity.getId());
 
             return entity.getId();
         });

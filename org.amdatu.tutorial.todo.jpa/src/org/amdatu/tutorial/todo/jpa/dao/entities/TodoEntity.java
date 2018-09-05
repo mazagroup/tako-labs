@@ -29,7 +29,7 @@ public class TodoEntity implements TenantSupport {
     @Id
     private Long id;
     
-    private String tenantId;
+    private String tenantId = "N/A";
     
     public String description;
     public boolean completed;
@@ -44,9 +44,11 @@ public class TodoEntity implements TenantSupport {
 	public  static TodoEntity fromDTO(TodoDTO dto) {
     	TodoEntity entity = new TodoEntity();
     	
-        if(dto.id != 0) {
+        if(dto.id != null && dto.id != 0) {
             entity.id = Long.valueOf(dto.id);
         }
+        entity.tenantId = dto.tenantId;
+        
         entity.description = dto.description;
         entity.completed = dto.completed;
         entity.user = dto.user;
@@ -61,6 +63,7 @@ public class TodoEntity implements TenantSupport {
     	TodoDTO dto = new TodoDTO();
     	
         dto.id = id;
+        dto.tenantId = tenantId;
         dto.description = description;
         dto.completed = completed;
         dto.user = user;

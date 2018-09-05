@@ -9,7 +9,6 @@ import java.util.Date;
 import org.amdatu.testing.configurator.TestConfigurator;
 import org.amdatu.tutorial.todo.api.ReminderDTO;
 import org.amdatu.tutorial.todo.api.TenantContext;
-import org.amdatu.tutorial.todo.api.TenantSupportDTO;
 import org.amdatu.tutorial.todo.api.TodoDTO;
 import org.amdatu.tutorial.todo.api.TodoDao;
 import org.junit.After;
@@ -17,12 +16,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
+import org.osgi.service.transaction.control.TransactionControl;
 
 @RunWith(JUnit4.class)
 public class TodoDaoMultiTenantTest {
 	
+	private Long id;
+	
 	private volatile TodoDao todoDaoService;
+	private volatile TransactionControl transactionControl;
 
     @Before
     public void before() {
@@ -30,7 +32,10 @@ public class TodoDaoMultiTenantTest {
     	
         TestConfigurator.configure(this)
         	.add(TestConfigurator.createServiceDependency().setService(TodoDao.class).setRequired(true))
+        	.add(TestConfigurator.createServiceDependency().setService(TransactionControl.class).setRequired(true))
             .apply();
+        
+        
     }
 
     @After
@@ -42,11 +47,10 @@ public class TodoDaoMultiTenantTest {
     public void test() {
         assertNotNull(todoDaoService);
         
-        Long id = todoDaoService.save(new TodoDTO("task #1", false, "user1", Arrays.asList(new ReminderDTO[] {new ReminderDTO(new Date())})));
-        
-        assertNotNull(todoDaoService.findByPK(id));
-        
-        assertEquals("tenant_A",todoDaoService.findByPK(id).tenantId);
+    	id = todoDaoService.save(new TodoDTO("task #1", false, "user1", Arrays.asList(new ReminderDTO[] {new ReminderDTO(new Date())})));
+	    
+        TodoDTO todo = todoDaoService.findByPK(id);
+		assertEquals("tenant_A",todo.tenantId);
     }
 
 }

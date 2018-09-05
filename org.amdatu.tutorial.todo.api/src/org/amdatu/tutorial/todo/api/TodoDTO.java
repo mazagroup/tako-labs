@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TodoDTO extends TenantSupportDTO {
 
-	public Long id = 0L;
+	public Long id;
     public String description;
     public boolean completed;
     public String user;

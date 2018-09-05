@@ -3,13 +3,9 @@ package org.amdatu.tutorial.todo.jpa.dao.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,14 +18,13 @@ import org.amdatu.tutorial.todo.api.TenantSupport;
 public class ReminderEntity implements TenantSupport {
 
     @ManyToOne
-    @JoinColumn(name="todo_id", foreignKey=@ForeignKey(name="todo"))
     private TodoEntity todo;
     
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     
-    private String tenantId;
+    private String tenantId = "N/A#2";
     
     private Date date;
     
@@ -38,6 +33,7 @@ public class ReminderEntity implements TenantSupport {
     	
         entity.todo = todo;
         entity.date = dto.date;
+        entity.tenantId = dto.tenantId;
         
         return entity;
     }
@@ -48,6 +44,7 @@ public class ReminderEntity implements TenantSupport {
         dto.todo_id = todo.getId();
         dto.id = id;
         dto.date = date;
+        dto.tenantId = tenantId;
         
         return dto;
     }

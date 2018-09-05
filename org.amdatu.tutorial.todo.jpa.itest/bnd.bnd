@@ -18,7 +18,9 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 -runpath: org.jboss.spec.javax.transaction.jboss-transaction-api_1.2_spec;version=1.0.1.Final
 
 -buildfeatures: testing
--buildpath: org.amdatu.tutorial.todo.api;version=latest
+-buildpath: org.amdatu.tutorial.todo.api;version=latest,\
+	tx-control-service-xa;version=1.0,\
+	tx-control-provider-jpa-xa;version=1.0
 
 -runfeatures: base, conf, testing
 -runbundles: \
@@ -47,4 +49,4 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 	org.amdatu.tutorial.todo.jpa;version=latest
 
 -runproperties: \
-	org.ops4j.pax.logging.DefaultServiceLog.level=DEBUG
+	org.ops4j.pax.logging.DefaultServiceLog.level=INFO

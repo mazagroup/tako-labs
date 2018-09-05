@@ -16,5 +16,4 @@ public interface ReminderDao {
     public void update(Long todoId,ReminderDTO data);
 
     public void delete(Long todoId) ;
-
 }
