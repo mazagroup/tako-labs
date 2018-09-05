@@ -22,7 +22,7 @@ public class EntityPersistenceStateInterceptor extends EmptyInterceptor 	{
     
     
     
-    @Override
+	@Override
     public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
       if (entity instanceof TenantSupport) {
     	logger.info("[save] Updating the entity " + id + " with util information: " + TenantContext.getCurrentTenant());
@@ -51,6 +51,7 @@ public class EntityPersistenceStateInterceptor extends EmptyInterceptor 	{
       return super.onFlushDirty(entity, id, currentState, previousState, propertyNames, types);
     }
     
+    // This is a hack: in case onSave or onDelete updates are not effective
     @Override
     public void preFlush(Iterator entities) {
     	while (entities.hasNext()) {

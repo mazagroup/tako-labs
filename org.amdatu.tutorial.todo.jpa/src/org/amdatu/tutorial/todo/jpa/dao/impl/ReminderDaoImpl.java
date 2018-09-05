@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.toList;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 
 import javax.persistence.EntityManager;
@@ -37,7 +36,11 @@ public class ReminderDaoImpl implements ReminderDao {
 	@ServiceDependency(name="microservice.database",required=true)
 	JPAEntityManagerProvider jpaEntityManagerProvider;
 
-	EntityManager em;
+	private EntityManager em;
+
+	public EntityManager getEm() {
+		return em;
+	}
 
 	@Start
 	void activate() throws SQLException {

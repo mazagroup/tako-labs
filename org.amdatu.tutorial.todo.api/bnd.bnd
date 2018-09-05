@@ -3,4 +3,4 @@ Export-Package: \
 	org.amdatu.tutorial.todo.api,\
 	org.amdatu.tutorial.todo.api.dto
 
--buildpath:
+-buildpath: org.hibernate.javax.persistence.hibernate-jpa-2.1-api;version=1.0

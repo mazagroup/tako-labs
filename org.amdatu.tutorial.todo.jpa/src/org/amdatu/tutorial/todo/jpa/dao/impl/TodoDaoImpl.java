@@ -36,9 +36,14 @@ public class TodoDaoImpl implements TodoDao {
     @ServiceDependency(name="microservice.database",required=true)
     JPAEntityManagerProvider jpaEntityManagerProvider;
 
-    EntityManager em;
+    private EntityManager em;
 
-    @Start
+    @Override
+    public EntityManager getEm() {
+		return em;
+	}
+
+	@Start
     void activate() throws SQLException {
         em = jpaEntityManagerProvider.getResource(transactionControl);
     }
