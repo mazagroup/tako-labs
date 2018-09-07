@@ -16,10 +16,15 @@ import javax.persistence.Table;
 
 import org.amdatu.tutorial.todo.api.TenantSupport;
 import org.amdatu.tutorial.todo.api.TodoDTO;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 
 @Entity
 @Table(name="todos")
+@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
+@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 public class TodoEntity implements TenantSupport {
 
     @OneToMany(mappedBy="todo", cascade=CascadeType.ALL)
@@ -29,15 +34,18 @@ public class TodoEntity implements TenantSupport {
     @Id
     private Long id;
     
-    private String tenantId = "N/A";
+    private String tenantId;
     
     public String description;
     public boolean completed;
     public String user;
     
     
-    
-    public Long getId() {
+    public TodoEntity() {
+		super();
+	}
+
+	public Long getId() {
 		return id;
 	}
 

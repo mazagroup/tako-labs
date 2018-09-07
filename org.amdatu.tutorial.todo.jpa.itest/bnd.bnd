@@ -24,6 +24,7 @@ Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
 
 -runfeatures: base, conf, testing
 -runbundles: \
+	org.aspectj.runtime,\
 	org.osgi.util.converter;version='[1.0.0,1.0.1)',\
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
 	org.osgi.util.promise;version='[1.1.0,1.1.1)',\

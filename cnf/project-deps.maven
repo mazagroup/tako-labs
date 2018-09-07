@@ -14,7 +14,7 @@ org.apache.aries.tx-control:tx-control-provider-jpa-xa:1.0.0
 org.osgi:org.osgi.util.function:1.1.0
 org.osgi:org.osgi.util.promise:1.1.0
 org.osgi:org.osgi.util.pushstream:1.0.0
-org.osgi.util.converter:1.0.0
+org.osgi:org.osgi.util.converter:1.0.0
 # Needed by Hibernate
 org.apache.servicemix.bundles:org.apache.servicemix.bundles.antlr:2.7.7_5
 org.apache.servicemix.bundles:org.apache.servicemix.bundles.dom4j:1.6.1_5

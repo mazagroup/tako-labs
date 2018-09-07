@@ -1,0 +1,47 @@
+#
+# Tako deps feature
+#
+blueprint-feature.weaving: weaving
+blueprint-repo.weaving: http://tako-repo.s3-website-us-east-1.amazonaws.com/tako-deps/r1/repo/index.xml.gz
+
+#
+# Build
+#
+-buildpath.blueprint-weaving: \
+	${if;(buildfeaturesMerged[]=weaving); \
+	   org.eclipse.equinox.weaving.aspectj,\
+	   org.aspectj.weaver,\
+	   org.aspectj.runtime,\
+	   org.eclipse.equinox.common,\
+	   org.eclipse.equinox.ds,\
+	   org.eclipse.core.runtime,\
+	   org.eclipse.core.contenttype,\
+	   org.eclipse.core.jobs,\
+	   org.eclipse.equinox.app,\
+	   org.eclipse.equinox.preferences,\
+	   org.eclipse.equinox.registry,\
+	   org.eclipse.equinox.util,\
+	   org.eclipse.osgi.services,\
+	   org.eclipse.update.configurator,\
+	}
+
+#
+# Run
+#
+-runbundles.blueprint-weaving: \
+	${if;(runfeaturesMerged[]=weaving); \
+	   org.eclipse.equinox.weaving.aspectj,\
+	   org.aspectj.weaver,\
+	   org.aspectj.runtime,\
+	   org.eclipse.equinox.common,\
+	   org.eclipse.equinox.ds,\
+	   org.eclipse.core.runtime,\
+	   org.eclipse.core.contenttype,\
+	   org.eclipse.core.jobs,\
+	   org.eclipse.equinox.app,\
+	   org.eclipse.equinox.preferences,\
+	   org.eclipse.equinox.registry,\
+	   org.eclipse.equinox.util,\
+	   org.eclipse.osgi.services,\
+	   org.eclipse.update.configurator,\
+	}

@@ -1,15 +1,34 @@
-// Available to customize the build
+  // Available to customize the build
+project.ext {
+  aspectjVersion = '1.8.12'
+}
+
+
 buildscript {
     repositories {
+        maven {
+            url "https://maven.eveoh.nl/content/repositories/releases"
+        }
         jcenter()
     }
 
     dependencies {
         classpath 'com.bmuschko:gradle-docker-plugin:3.2.8'
+        classpath 'nl.eveoh:gradle-aspectj:2.0'
     }
 }
 repositories {
+    maven {
+        url "https://maven.eveoh.nl/content/repositories/releases"
+    }
     jcenter()
 }
 
-apply from: 'cnf/gradle/docker-export.gradle'
+apply plugin: 'aspectj'
+
+project.ext {
+    aspectjVersion = '1.8.12'
+    ajInpath = 'src/org/amdatu/tutorial/weaving/explicit'
+}
+
+//apply from: 'cnf/gradle/docker-export.gradle'

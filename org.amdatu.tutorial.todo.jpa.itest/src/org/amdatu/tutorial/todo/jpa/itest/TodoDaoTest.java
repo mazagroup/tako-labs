@@ -40,7 +40,7 @@ public class TodoDaoTest {
         
         todoDaoService.save(new TodoDTO("task #1", false, "user1", Arrays.asList(new ReminderDTO[] {new ReminderDTO(new Date())})));
         
-        assertEquals(1,todoDaoService.select().size());
+        assertEquals(2,todoDaoService.select().size());
     }
 
 }

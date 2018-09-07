@@ -16,4 +16,5 @@ blueprintVersion: r4
 	../features/blueprint/r4/template.bnd,\
 	../features/blueprint/r4/testing.bnd,\
 	../features/blueprint/r4/validator.bnd,\
-	../features/blueprint/r4/web.bnd
+	../features/blueprint/r4/web.bnd,\
+	../features/blueprint/r4/weaving.bnd

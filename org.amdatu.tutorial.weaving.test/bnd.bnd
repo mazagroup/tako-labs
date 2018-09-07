@@ -1,0 +1,32 @@
+Private-Package: \
+	org.amdatu.tutorial.weaving.test,\
+	org.amdatu.tutorial.weaving
+	
+
+Require-Bundle: \
+    org.eclipse.core.runtime,\
+    org.aspectj.runtime,\
+    org.eclipse.equinox.weaving.aspectj
+
+# Discover and run all test cases annotated with the @RunWith annotation
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
+
+-runfw: org.eclipse.osgi;version='[3.10.2.v20150203-1939,3.10.2.v20150203-1939]'
+-runpath: org.eclipse.equinox.weaving.hook;version='[1.1.100,1.1.200)'
+-runvm:-Dosgi.framework.extensions=org.eclipse.equinox.weaving.hook
+
+-buildfeatures: weaving, testing
+-buildpath:
+
+-runfeatures: base, weaving, testing
+-runbundles:
+
+-runproperties: \
+	org.ops4j.pax.logging.DefaultServiceLog.level=DEBUG,\
+    aj.weaving.verbose=true,\
+    org.aspectj.weaver.showWeaveInfo=true,\
+    org.aspectj.osgi.verbose=true
+Export-Package: org.amdatu.tutorial.weaving.explicit
+
+
+Eclipse-SupplementBundle: org.amdatu.tutorial.weaving.test
