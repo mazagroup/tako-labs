@@ -61,7 +61,7 @@ public class TodoDaoImpl implements TodoDao {
     @Override
     public List<TodoDTO> select() {
 
-        //return transactionControl.requiresNew(() -> {
+        return transactionControl.supports(() -> {
             CriteriaBuilder builder = em.getCriteriaBuilder();
             
             CriteriaQuery<TodoEntity> query = builder.createQuery(TodoEntity.class);
@@ -71,7 +71,7 @@ public class TodoDaoImpl implements TodoDao {
             return em.createQuery(query).getResultList().stream()
                     .map(TodoEntity::toDTO)
                     .collect(toList());
-        //});
+        });
     }
     
 	@Override 

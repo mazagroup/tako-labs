@@ -1,0 +1,7 @@
+Bundle-Version: 1.0.0
+Export-Package: \
+	org.tako.data.commons.domain,\
+	org.tako.data.commons.util
+
+-buildfeatures:
+-buildpath:
