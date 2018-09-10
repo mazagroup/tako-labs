@@ -16,7 +16,8 @@ Private-Package: \
 	tx-control-service-xa;version=1.0,\
 	tx-control-provider-jpa-xa;version=1.0,\
 	slf4j.api;version=1.7,\
-	org.hibernate.core;version=5.2
+	org.hibernate.core;version=5.2,\
+	org.aspectj.runtime;version=1.8
 	
 Import-Package: \
 	org.hibernate.proxy,\

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.amdatu.testing.configurator.TestConfigurator;
 import org.amdatu.tutorial.todo.api.ReminderDTO;
@@ -28,7 +29,6 @@ public class TodoDaoMultiTenantTest {
 
     @Before
     public void before() {
-    	TenantContext.setCurrentTenant("tenant_A");
     	
         TestConfigurator.configure(this)
         	.add(TestConfigurator.createServiceDependency().setService(TodoDao.class).setRequired(true))
@@ -47,10 +47,19 @@ public class TodoDaoMultiTenantTest {
     public void test() {
         assertNotNull(todoDaoService);
         
-    	id = todoDaoService.save(new TodoDTO("task #1", false, "user1", Arrays.asList(new ReminderDTO[] {new ReminderDTO(new Date())})));
+    	TenantContext.setCurrentTenant("tenant_A");
+    	todoDaoService.save(new TodoDTO("task #1A", false, "user1-tenant_A", Arrays.asList(new ReminderDTO[] {new ReminderDTO(new Date())})));
 	    
-        TodoDTO todo = todoDaoService.findByPK(id);
-		assertEquals("tenant_A",todo.tenantId);
+    	List<TodoDTO> res = todoDaoService.select();
+    	assertEquals(1,res.size());
+    	
+    	TenantContext.setCurrentTenant("tenant_B");
+    	todoDaoService.save(new TodoDTO("task #1B", false, "user1-tenant_B", Arrays.asList(new ReminderDTO[] {new ReminderDTO(new Date())})));
+	    
+    	res = todoDaoService.select();
+    	assertEquals(1,res.size());    	
+        //TodoDTO todo = todoDaoService.findByPK(id);
+		//assertEquals("tenant_A",todo.tenantId);
     }
 
 }

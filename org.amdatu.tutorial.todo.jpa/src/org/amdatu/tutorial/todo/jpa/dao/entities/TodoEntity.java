@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +22,7 @@ import org.hibernate.annotations.ParamDef;
 @Entity
 @Table(name="todos")
 @FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
+@Filter(name = "tenantFilter", condition = "tenantId = :tenantId")
 public class TodoEntity implements TenantSupport {
 
     @OneToMany(mappedBy="todo", cascade=CascadeType.ALL)

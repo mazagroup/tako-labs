@@ -5,11 +5,12 @@ import static java.util.stream.Collectors.toList;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.amdatu.tutorial.todo.api.TodoDTO;
@@ -18,6 +19,7 @@ import org.amdatu.tutorial.todo.jpa.dao.entities.TodoEntity;
 import org.apache.felix.dm.annotation.api.Component;
 import org.apache.felix.dm.annotation.api.ServiceDependency;
 import org.apache.felix.dm.annotation.api.Start;
+import org.hibernate.Session;
 import org.osgi.service.transaction.control.TransactionControl;
 import org.osgi.service.transaction.control.jpa.JPAEntityManagerProvider;
 import org.slf4j.Logger;
@@ -36,11 +38,20 @@ public class TodoDaoImpl implements TodoDao {
     JPAEntityManagerProvider jpaEntityManagerProvider;
 
     private EntityManager em;
+    
+
 
     @Override
     public EntityManager getEm() {
 		return em;
 	}
+    
+
+	@Override
+	public TransactionControl getTC() {
+		return transactionControl;
+	}
+    
 
 	@Start
     void activate() throws SQLException {
@@ -50,8 +61,7 @@ public class TodoDaoImpl implements TodoDao {
     @Override
     public List<TodoDTO> select() {
 
-        return transactionControl.notSupported(() -> {
-
+        //return transactionControl.requiresNew(() -> {
             CriteriaBuilder builder = em.getCriteriaBuilder();
             
             CriteriaQuery<TodoEntity> query = builder.createQuery(TodoEntity.class);
@@ -61,8 +71,29 @@ public class TodoDaoImpl implements TodoDao {
             return em.createQuery(query).getResultList().stream()
                     .map(TodoEntity::toDTO)
                     .collect(toList());
-        });
+        //});
     }
+    
+	@Override 
+	public List<TodoDTO> selectByDescription(String description) {
+		CriteriaBuilder builder = getEm().getCriteriaBuilder();
+		
+		ParameterExpression<String> dType = builder.parameter(String.class);
+		
+		CriteriaBuilder qb =  getEm().getCriteriaBuilder();
+		CriteriaQuery<TodoEntity> cq = qb.createQuery(TodoEntity.class);
+		Root<TodoEntity> rootEntity = cq.from(TodoEntity.class);
+		cq.select(rootEntity).where(builder.and(
+				builder.equal(rootEntity.get("description"),dType)
+				));
+		
+		TypedQuery<TodoEntity> typedQuery = getEm().createQuery(cq);
+		typedQuery.setParameter(dType, description);
+		
+        return typedQuery.getResultList().stream()
+                .map(TodoEntity::toDTO)
+                .collect(toList());	
+	}    
 
     @Override
     public void delete(Long primaryKey) {
@@ -129,5 +160,18 @@ public class TodoDaoImpl implements TodoDao {
             return null;
         });
     }
+    
+    
+    @Override
+    public void enableTenantFilter(String tenantId) {
+    	transactionControl.required(() -> {
+	  	  org.hibernate.Filter filter = getEm().unwrap(Session.class).enableFilter("tenantFilter");
+		  filter.setParameter("tenantId", tenantId);
+		  filter.validate();
+		  
+		  return null;
+    	});
+    }
+    
 }
 
