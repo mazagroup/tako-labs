@@ -1,0 +1,6 @@
+Bundle-Version: 1.0.0
+Export-Package: org.tako.data.jpa.datastore
+
+-buildfeatures:
+-buildpath: org.tako.data.commons;version=latest,\
+	org.hibernate.javax.persistence.hibernate-jpa-2.1-api;version=1.0

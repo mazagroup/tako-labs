@@ -3,6 +3,8 @@ package org.tako.data.commons.util;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.tako.data.commons.lang.Nullable;
+
 public abstract class StringUtils {
 
 	/**
@@ -77,4 +79,234 @@ public abstract class StringUtils {
 		}
 		return sb.toString();
 	}
+	
+	/**
+	 * Check that the given {@code CharSequence} is neither {@code null} nor
+	 * of length 0.
+	 * <p>Note: this method returns {@code true} for a {@code CharSequence}
+	 * that purely consists of whitespace.
+	 * <p><pre class="code">
+	 * StringUtils.hasLength(null) = false
+	 * StringUtils.hasLength("") = false
+	 * StringUtils.hasLength(" ") = true
+	 * StringUtils.hasLength("Hello") = true
+	 * </pre>
+	 * @param str the {@code CharSequence} to check (may be {@code null})
+	 * @return {@code true} if the {@code CharSequence} is not {@code null} and has length
+	 * @see #hasText(String)
+	 */
+	public static boolean hasLength(@Nullable CharSequence str) {
+		return (str != null && str.length() > 0);
+	}
+
+	/**
+	 * Check that the given {@code String} is neither {@code null} nor of length 0.
+	 * <p>Note: this method returns {@code true} for a {@code String} that
+	 * purely consists of whitespace.
+	 * @param str the {@code String} to check (may be {@code null})
+	 * @return {@code true} if the {@code String} is not {@code null} and has length
+	 * @see #hasLength(CharSequence)
+	 * @see #hasText(String)
+	 */
+	public static boolean hasLength(@Nullable String str) {
+		return (str != null && !str.isEmpty());
+	}
+	
+	/**
+	 * Check whether the given {@code CharSequence} contains actual <em>text</em>.
+	 * <p>More specifically, this method returns {@code true} if the
+	 * {@code CharSequence} is not {@code null}, its length is greater than
+	 * 0, and it contains at least one non-whitespace character.
+	 * <p><pre class="code">
+	 * StringUtils.hasText(null) = false
+	 * StringUtils.hasText("") = false
+	 * StringUtils.hasText(" ") = false
+	 * StringUtils.hasText("12345") = true
+	 * StringUtils.hasText(" 12345 ") = true
+	 * </pre>
+	 * @param str the {@code CharSequence} to check (may be {@code null})
+	 * @return {@code true} if the {@code CharSequence} is not {@code null},
+	 * its length is greater than 0, and it does not contain whitespace only
+	 * @see Character#isWhitespace
+	 */
+	public static boolean hasText(@Nullable CharSequence str) {
+		return (str != null && str.length() > 0 && containsText(str));
+	}
+
+	/**
+	 * Check whether the given {@code String} contains actual <em>text</em>.
+	 * <p>More specifically, this method returns {@code true} if the
+	 * {@code String} is not {@code null}, its length is greater than 0,
+	 * and it contains at least one non-whitespace character.
+	 * @param str the {@code String} to check (may be {@code null})
+	 * @return {@code true} if the {@code String} is not {@code null}, its
+	 * length is greater than 0, and it does not contain whitespace only
+	 * @see #hasText(CharSequence)
+	 */
+	public static boolean hasText(@Nullable String str) {
+		return (str != null && !str.isEmpty() && containsText(str));
+	}
+
+	private static boolean containsText(CharSequence str) {
+		int strLen = str.length();
+		for (int i = 0; i < strLen; i++) {
+			if (!Character.isWhitespace(str.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check whether the given {@code CharSequence} contains any whitespace characters.
+	 * @param str the {@code CharSequence} to check (may be {@code null})
+	 * @return {@code true} if the {@code CharSequence} is not empty and
+	 * contains at least 1 whitespace character
+	 * @see Character#isWhitespace
+	 */
+	public static boolean containsWhitespace(@Nullable CharSequence str) {
+		if (!hasLength(str)) {
+			return false;
+		}
+
+		int strLen = str.length();
+		for (int i = 0; i < strLen; i++) {
+			if (Character.isWhitespace(str.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check whether the given {@code String} contains any whitespace characters.
+	 * @param str the {@code String} to check (may be {@code null})
+	 * @return {@code true} if the {@code String} is not empty and
+	 * contains at least 1 whitespace character
+	 * @see #containsWhitespace(CharSequence)
+	 */
+	public static boolean containsWhitespace(@Nullable String str) {
+		return containsWhitespace((CharSequence) str);
+	}
+
+	/**
+	 * Trim leading and trailing whitespace from the given {@code String}.
+	 * @param str the {@code String} to check
+	 * @return the trimmed {@code String}
+	 * @see java.lang.Character#isWhitespace
+	 */
+	public static String trimWhitespace(String str) {
+		if (!hasLength(str)) {
+			return str;
+		}
+
+		int beginIndex = 0;
+		int endIndex = str.length() - 1;
+
+		while (beginIndex <= endIndex && Character.isWhitespace(str.charAt(beginIndex))) {
+			beginIndex++;
+		}
+
+		while (endIndex > beginIndex && Character.isWhitespace(str.charAt(endIndex))) {
+			endIndex--;
+		}
+
+		return str.substring(beginIndex, endIndex + 1);
+	}
+
+	/**
+	 * Trim <i>all</i> whitespace from the given {@code String}:
+	 * leading, trailing, and in between characters.
+	 * @param str the {@code String} to check
+	 * @return the trimmed {@code String}
+	 * @see java.lang.Character#isWhitespace
+	 */
+	public static String trimAllWhitespace(String str) {
+		if (!hasLength(str)) {
+			return str;
+		}
+
+		int len = str.length();
+		StringBuilder sb = new StringBuilder(str.length());
+		for (int i = 0; i < len; i++) {
+			char c = str.charAt(i);
+			if (!Character.isWhitespace(c)) {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Trim leading whitespace from the given {@code String}.
+	 * @param str the {@code String} to check
+	 * @return the trimmed {@code String}
+	 * @see java.lang.Character#isWhitespace
+	 */
+	public static String trimLeadingWhitespace(String str) {
+		if (!hasLength(str)) {
+			return str;
+		}
+
+		StringBuilder sb = new StringBuilder(str);
+		while (sb.length() > 0 && Character.isWhitespace(sb.charAt(0))) {
+			sb.deleteCharAt(0);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Trim trailing whitespace from the given {@code String}.
+	 * @param str the {@code String} to check
+	 * @return the trimmed {@code String}
+	 * @see java.lang.Character#isWhitespace
+	 */
+	public static String trimTrailingWhitespace(String str) {
+		if (!hasLength(str)) {
+			return str;
+		}
+
+		StringBuilder sb = new StringBuilder(str);
+		while (sb.length() > 0 && Character.isWhitespace(sb.charAt(sb.length() - 1))) {
+			sb.deleteCharAt(sb.length() - 1);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Trim all occurrences of the supplied leading character from the given {@code String}.
+	 * @param str the {@code String} to check
+	 * @param leadingCharacter the leading character to be trimmed
+	 * @return the trimmed {@code String}
+	 */
+	public static String trimLeadingCharacter(String str, char leadingCharacter) {
+		if (!hasLength(str)) {
+			return str;
+		}
+
+		StringBuilder sb = new StringBuilder(str);
+		while (sb.length() > 0 && sb.charAt(0) == leadingCharacter) {
+			sb.deleteCharAt(0);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Trim all occurrences of the supplied trailing character from the given {@code String}.
+	 * @param str the {@code String} to check
+	 * @param trailingCharacter the trailing character to be trimmed
+	 * @return the trimmed {@code String}
+	 */
+	public static String trimTrailingCharacter(String str, char trailingCharacter) {
+		if (!hasLength(str)) {
+			return str;
+		}
+
+		StringBuilder sb = new StringBuilder(str);
+		while (sb.length() > 0 && sb.charAt(sb.length() - 1) == trailingCharacter) {
+			sb.deleteCharAt(sb.length() - 1);
+		}
+		return sb.toString();
+	}
+
 }
