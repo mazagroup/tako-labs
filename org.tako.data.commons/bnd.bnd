@@ -1,9 +1,0 @@
-Bundle-Version: 1.0.0
-Export-Package: \
-	org.tako.data.commons.domain,\
-	org.tako.data.commons.util,\
-	org.tako.data.commons.datastore
-
--buildfeatures:
--buildpath: \
-	org.jsr-305;version=3.0

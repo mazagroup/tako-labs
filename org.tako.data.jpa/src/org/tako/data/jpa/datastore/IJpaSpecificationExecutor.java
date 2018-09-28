@@ -3,9 +3,9 @@ package org.tako.data.jpa.datastore;
 import java.util.List;
 import java.util.Optional;
 
-import org.tako.data.commons.domain.IPage;
-import org.tako.data.commons.domain.IPageable;
-import org.tako.data.commons.domain.Sort;
+import org.tako.data.domain.IPage;
+import org.tako.data.domain.IPageable;
+import org.tako.data.domain.Sort;
 import org.tako.data.jpa.domain.ISpecification;
 
 

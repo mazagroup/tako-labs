@@ -2,33 +2,21 @@ package org.tako.data.jpa.datastore;
 
 import java.util.List;
 
-import org.tako.data.commons.datastore.IPagingAndSortingDataStore;
-import org.tako.data.commons.domain.Sort;
+import org.tako.data.datastore.IPagingAndSortingDataStore;
+import org.tako.data.domain.Sort;
 
 public interface IJPADataStore<T, ID> extends IPagingAndSortingDataStore<T, ID>  {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.repository.CrudRepository#findAll()
-	 */
+	
 	List<T> findAll();
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.repository.PagingAndSortingRepository#findAll(org.springframework.data.domain.Sort)
-	 */
+	
 	List<T> findAll(Sort sort);
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.repository.CrudRepository#findAll(java.lang.Iterable)
-	 */
+	
 	List<T> findAllById(Iterable<ID> ids);
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Iterable)
-	 */
+	
 	<S extends T> List<S> saveAll(Iterable<S> entities);
 
 	/**

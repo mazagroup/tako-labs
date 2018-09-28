@@ -1,0 +1,18 @@
+
+# Discover and run all test cases annotated with the @RunWith annotation
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.runner.RunWith}
+
+-runfw: org.apache.felix.framework
+
+-buildfeatures: testing
+-buildpath: org.tako.commons;version=latest
+
+-runfeatures: base, testing
+-runbundles:
+
+-runproperties: \
+	org.ops4j.pax.logging.DefaultServiceLog.level=INFO
+Export-Package: \
+	org.tako.commons.tests,\
+	org.tako.commons.tests.sample.beans,\
+	org.tako.commons.tests.sample.beans.subpkg

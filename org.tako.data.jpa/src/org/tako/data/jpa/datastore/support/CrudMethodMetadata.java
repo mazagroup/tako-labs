@@ -13,10 +13,6 @@ import org.springframework.lang.Nullable;
  * Interface to abstract {@link CrudMethodMetadata} that provide the {@link LockModeType} to be used for query
  * execution.
  *
- * @author Oliver Gierke
- * @author Thomas Darimont
- * @author Christoph Strobl
- * @author Mark Paluch
  */
 public interface CrudMethodMetadata {
 

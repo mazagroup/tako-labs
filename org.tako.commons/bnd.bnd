@@ -1,0 +1,11 @@
+Bundle-Version: 1.0.0
+Export-Package: \
+	org.tako.commons.core,\
+	org.tako.commons.lang,\
+	org.tako.commons.util,\
+	org.tako.commons.tests.sample.beans,\
+	org.tako.commons.core.annotation
+
+-buildfeatures:
+-buildpath: \
+	org.jsr-305;version=3.0

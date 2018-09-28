@@ -1,0 +1,17 @@
+Bundle-Version: 1.0.0
+Export-Package: \
+	org.tako.data.annotation,\
+	org.tako.commons.core,\
+	org.tako.commons.core.annotation,\
+	org.tako.data.datastore,\
+	org.tako.data.datastore.core,\
+	org.tako.data.datastore.query,\
+	org.tako.data.domain,\
+	org.tako.commons.lang,\
+	org.tako.data.projection,\
+	org.tako.commons.util
+
+-buildfeatures:
+-buildpath: \
+	org.jsr-305;version=3.0,\
+	org.tako.commons;version=latest

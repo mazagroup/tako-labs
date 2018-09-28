@@ -78,10 +78,7 @@ public class Specifications<T> implements ISpecification<T>, Serializable {
 		return new Specifications<>(negated(spec));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.jpa.domain.ISpecification#toPredicate(javax.persistence.criteria.Root, javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.CriteriaBuilder)
-	 */
+	
 	public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 		return spec == null ? null : spec.toPredicate(root, query, builder);
 	}

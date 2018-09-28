@@ -1,0 +1,20 @@
+Bundle-Version: 1.0.0
+Export-Package: \
+	org.aopalliance.aop,\
+	org.aopalliance.intercept,\
+	org.tako.aop,\
+	org.tako.aop.interceptor,\
+	org.tako.tests.aop.interceptor,\
+	org.tako.aop.support,\
+	org.tako.aop.aspectj,\
+	org.tako.aop.support,\
+	org.tako.aop.target,\
+	org.tako.aop.framework,\
+	org.tako.aop.framework.adapter,\
+	org.tako.aop.framework.autoproxy
+
+-buildfeatures:
+-buildpath: \
+	org.tako.commons;version=latest,\
+	org.aspectj.weaver;version=1.8,\
+	org.aspectj.runtime;version=1.8
